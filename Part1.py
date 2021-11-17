@@ -4,10 +4,10 @@ def get_train(train_file):
     
     examples = 0
     lines = 0
-    train_emission_types = {} # key: 
-    train_emissions = {} # key: all unique words, value: concatenation of all labels (separated by ,) emitting the word
-    train_labels = {}
-    train_words = []
+    train_emission_types = {} # key: all unique words, value: concatenation of all labels (separated by ,) emitting the word
+    train_emissions = {} # key: all unique emissions (by concatenating word + label), value: count of the emission
+    train_labels = {} # key: all uniqe labels, value: count of label
+    train_words = [] # all the unique words in training set
     
     for line in train_file:
         line = line.strip()
