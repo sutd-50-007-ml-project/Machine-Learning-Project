@@ -76,8 +76,8 @@ def transition_parameter(pathtofile):
 
 
 
-train_transitionES = transition_parameter("ES/train")[1]
-train_transitionRU = transition_parameter ("RU/train")[1] # do this later
+train_transitionES = transition_parameter("/Users/sweeen/Downloads/Project/ES/train")[1]
+train_transitionRU = transition_parameter ("/Users/sweeen/Downloads/Project/RU/train")[1] # do this later
 print (train_transitionES)
 
 
@@ -98,7 +98,7 @@ def viterbiAlgo(states, emission, transition, sentence):
 
     takesmallest = math.log(sys.float_info.min) - 1 #prevents underflow by utilising Log
 
-    scores = {} #score is a dictionary?
+    scores = {} #score is a dictionary
     scores[0] = {}
 
     for j in states:
@@ -176,9 +176,9 @@ def viterbiAlgo(states, emission, transition, sentence):
 
 # test_file = open(sys.argv[2], "r", encoding='UTF-8')
 # output_file = open(sys.argv[3], "w", encoding='UTF-8')
-train_file = open("RU/train", "r", encoding='UTF-8') #change here for ES/RU , RU/ES
+train_file = open("/Users/sweeen/Downloads/Project/ES/train", "r", encoding='UTF-8') #change here for ES/RU , RU/ES
 
-ViterbiSentence = get_sentence("RU\dev.in")  #change here for ES/RU , RU/ES
+ViterbiSentence = get_sentence("/Users/sweeen/Downloads/Project/ES/dev.in")  #change here for ES/RU , RU/ES
 
 train_emissions,train_labels, _ , _ =  get_train (train_file) #gather what i need for viterbi
 
@@ -204,4 +204,4 @@ with open ("RU\dev.p2.out", "w" , encoding="UTF-8") as file :       #change here
 
 
 
-# python EvalScript/evalResult.py ES/dev.out ES/dev.p2.out
+#python EvalScript/evalResult.py ES/dev.out ES/dev.p2.out
