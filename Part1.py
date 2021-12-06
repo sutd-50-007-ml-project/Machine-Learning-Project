@@ -64,7 +64,7 @@ def emission_parameter(train_word, train_label, train_emissions, train_words, tr
 
 # Objective: Train the model to get predictions for test set
 # How it works: 
-#  1. Find the max emission paramater for each word in training set.
+# 1. Find the max emission paramater for each word in training set.
 #    The label prediction for each word will be the label that gives 
 #    the highest emission parameter. (Since each word can be emitted
 #    by multiple labels)
@@ -95,7 +95,7 @@ def max_emission_parameter(train_emission_types, train_emissions, train_words, t
     
     max_unk_em = 0  
     
-    # find highest emission parameter for amongst all labels for "UNK" tag      
+    # find highest emission parameter for amongst all labels for "UNK" label      
     for label in train_labels:
         new_em = emission_parameter(unk, label, train_emissions, train_words, train_labels)
         if new_em > max_unk_em:
@@ -153,11 +153,11 @@ separator = ' '
 # special token
 unk = "#UNK#"
 
-# Read training data
+# 1. Read training data
 train_data = get_train(train_file)
 
-# Make prediction using test data
+# 2. Make prediction using test data
 output = sentiment_analysis(train_data, test_file)
 
-# Write prediction output to file
+# 3. Write prediction output to file
 output_file.write(output)
