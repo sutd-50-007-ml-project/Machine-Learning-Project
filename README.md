@@ -57,7 +57,9 @@ Lines 79, 80, 179 and 181 in Part2.py, and
 Lines 117, 118, 121 and 123 in Part3.py
 
 To run the evaluation script, simply open up the terminal and type the following:
+```
 python3 path_to_evalResult.py path_to_dev.out path_to_dev.p3.out
+```
 
 ### Question 4
 To run the code for Q3, replace the paths to the appropriate ES/RU files with your own in the following lines:
