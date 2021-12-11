@@ -48,6 +48,8 @@ def get_prob(word_label_dict, label_dict, no_of_lines):
         label_prob[label] = label_dict[label] / no_of_lines
 
     #find the label that has the highest probability of appearing
+    print ("the label dict is: ")
+    print(label_dict)
     most_common_label = max(label_dict, key=label_dict.get)
 
     return word_label_prob, label_prob, most_common_label
@@ -130,10 +132,14 @@ def predict_test_set(new_prob_label_given_word_dictionary, test_file, most_commo
     return (entire_file_array)
 
 #opening train and test files
-ES_train_file = open("/Users/sweeen/Downloads/Project/ES/train", "r", encoding='UTF-8')
-RU_train_file = open("/Users/sweeen/Downloads/Project/RU/train", "r", encoding='UTF-8')
-ES_test_file = open("/Users/sweeen/Downloads/Project/ES/dev.in", "r", encoding='UTF-8')
-RU_test_file = open("/Users/sweeen/Downloads/Project/RU/dev.in", "r", encoding='UTF-8')
+ES_train_file = open("/Users/ouryuuzeno/Downloads/Project/ES/train", "r", encoding='UTF-8')
+RU_train_file = open("/Users/ouryuuzeno/Downloads/Project/RU/train", "r", encoding='UTF-8')
+#ES_test_file = open("/Users/ouryuuzeno/Downloads/Project/ES/dev.in", "r", encoding='UTF-8')
+#RU_test_file = open("/Users/ouryuuzeno/Downloads/Project/RU/dev.in", "r", encoding='UTF-8')
+
+#the files for new test set (the one released 48 hours before due date)
+ES_new_test = open('/Users/ouryuuzeno/Downloads/Project/test/ES-test/test.in')
+RU_new_test = open("/Users/ouryuuzeno/Downloads/Project/test/RU-test/test.in")
 
 #putting all the functions together to get the output to be written to file
 def output(training_set, test_set):
@@ -143,19 +149,37 @@ def output(training_set, test_set):
     output_array = predict_test_set(prob_label_given_word_dict, test_set, most_common_label)
     return output_array
 
-ES_output = output(ES_train_file, ES_test_file)
-RU_output = output(RU_train_file, RU_test_file)
+#ES_output = output(ES_train_file, ES_test_file)
+#RU_output = output(RU_train_file, RU_test_file)
+
+#new outputs for new test data (the one released 48 hours before)
+ES_new_output = output(ES_train_file, ES_new_test)
+RU_new_output = output(RU_train_file, RU_new_test)
 
 #write the outputs to the appropriate dev.p4.out
-with open ("/Users/sweeen/Downloads/Project/ES/dev.p4.out", "w" , encoding="UTF-8") as file:
-    for item in ES_output:
+#with open ("/Users/ouryuuzeno/Downloads/Project/ES/dev.p4.out", "w" , encoding="UTF-8") as file:
+ #   for item in ES_output:
+  #      file.write(item)
+   #     file.write ('\n')
+
+#with open ("/Users/ouryuuzeno/Downloads/Project/RU/dev.p4.out", "w" , encoding="UTF-8") as file:
+ #   for item in RU_output:
+  #      file.write(item)
+   #     file.write ('\n')
+
+#new files opened for new test set (the one released 48 hours before)
+with open ("/Users/ouryuuzeno/Downloads/Project/test/ES-test/test.p4.out", "w" , encoding="UTF-8") as file:
+    for item in ES_new_output:
         file.write(item)
         file.write ('\n')
 
-with open ("/Users/sweeen/Downloads/Project/RU/dev.p4.out", "w" , encoding="UTF-8") as file:
-    for item in RU_output:
+with open ("/Users/ouryuuzeno/Downloads/Project/test/RU-test/test.p4.out", "w" , encoding="UTF-8") as file:
+    for item in RU_new_output:
         file.write(item)
         file.write ('\n')
 
-#python3 /Users/sweeen/Downloads/Project/EvalScript/evalResult.py /Users/sweeen/Downloads/Project/ES/dev.out /Users/sweeen/Downloads/Project/ES/dev.p4.out
-#python3 /Users/sweeen/Downloads/Project/EvalScript/evalResult.py /Users/sweeen/Downloads/Project/RU/dev.out /Users/sweeen/Downloads/Project/RU/dev.p4.out
+#python3 /Users/ouryuuzeno/Downloads/Project/EvalScript/evalResult.py /Users/ouryuuzeno/Downloads/Project/ES/dev.out /Users/ouryuuzeno/Downloads/Project/ES/dev.p4.out
+#python3 /Users/ouryuuzeno/Downloads/Project/EvalScript/evalResult.py /Users/ouryuuzeno/Downloads/Project/RU/dev.out /Users/ouryuuzeno/Downloads/Project/RU/dev.p4.out
+
+#python3 /Users/ouryuuzeno/Downloads/Project/EvalScript/evalResult.py /Users/ouryuuzeno/Downloads/Project/ES/dev.out /Users/ouryuuzeno/Downloads/Project/test/ES-test/test.p4.out
+#python3 /Users/ouryuuzeno/Downloads/Project/EvalScript/evalResult.py /Users/ouryuuzeno/Downloads/Project/RU/dev.out /Users/ouryuuzeno/Downloads/Project/test/RU-test/test.p4.out
