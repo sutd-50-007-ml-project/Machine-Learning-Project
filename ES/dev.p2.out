@@ -1121,9 +1121,9 @@ o O
 alguno O
 tenía O
 especial O
-aversión O
-al O
-morro B-positive
+aversión B-positive
+al I-positive
+morro I-positive
 de I-positive
 ternera I-positive
 , O
@@ -3208,8 +3208,8 @@ esperas O
 . O
 
 Los O
-calçots I-neutral
-buenisimos I-neutral
+calçots B-positive
+buenisimos O
 
 No O
 son O
@@ -3761,11 +3761,11 @@ gusto O
 , O
 la O
 paella B-negative
-del O
-moll O
-del O
-rellotge O
-está O
+del I-negative
+moll I-negative
+del I-negative
+rellotge I-negative
+está I-negative
 en O
 el O
 punto O
@@ -4748,7 +4748,7 @@ buena O
 sobre O
 todo O
 el O
-ternasco B-positive
+ternasco I-positive
 a I-positive
 la I-positive
 brasa I-positive

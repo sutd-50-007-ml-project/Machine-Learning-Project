@@ -82,12 +82,9 @@ def transition_parameter(pathtofile):
 
 
 
-train_transitionES = transition_parameter("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/train")[1]
-train_transitionRU = transition_parameter ("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/train")[1] # do this later
-print (train_transitionES)
-
-
-
+train_transitionES = transition_parameter("/Users/ouryuuzeno/Downloads/Project/ES/train")[1]
+train_transitionRU = transition_parameter("/Users/ouryuuzeno/Downloads/Project/RU/train")[1]
+#print (train_transitionES)
 
 #Part3 ii)
 
@@ -182,11 +179,10 @@ def viterbiAlgo(states, emission, transition, sentence):
 
 # test_file = open(sys.argv[2], "r", encoding='UTF-8')
 # output_file = open(sys.argv[3], "w", encoding='UTF-8')
-train_file = open("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/train", "r", encoding='UTF-8') #change here for ES/RU , RU/ES
+train_file = open("/Users/ouryuuzeno/Downloads/Project/RU/train", "r", encoding='UTF-8')
+ViterbiSentence = get_sentence("/Users/ouryuuzeno/Downloads/Project/RU/dev.in") 
 
-ViterbiSentence = get_sentence("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/dev.in")  #change here for ES/RU , RU/ES
-
-test_file = open("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/dev.in", "r", encoding='UTF-8')
+test_file = open("/Users/ouryuuzeno/Downloads/Project/RU/dev.in", "r", encoding='UTF-8')
 train_data = get_train (train_file) #gather what i need for viterbi
 
 train_emissions = train_data[0]
@@ -206,7 +202,7 @@ _, max_em = sentiment_analysis(train_data, test_file)
 #         file.write ('\n')
 
 #
-with open ("RU/dev.p2.out", "w" , encoding="UTF-8") as file :       #change here for ES/RU , RU/ES
+with open ("/Users/ouryuuzeno/Downloads/Project/RU/dev.p2.out", "w" , encoding="UTF-8") as file :       #change here for ES/RU , RU/ES
     for sentence in ViterbiSentence:
         ListPath = (viterbiAlgo(train_labels, max_em, train_transitionRU, sentence))[1] #change here for ES/RU , RU/ES
         for i in range(len(sentence)-1) :
@@ -221,3 +217,6 @@ with open ("RU/dev.p2.out", "w" , encoding="UTF-8") as file :       #change here
 
 
 #python EvalScript/evalResult.py ES/dev.out ES/dev.p2.out
+
+#python3 /Users/ouryuuzeno/Downloads/Project/EvalScript/evalResult.py /Users/ouryuuzeno/Downloads/Project/ES/dev.out /Users/ouryuuzeno/Downloads/Project/ES/dev.p2.out
+#python3 /Users/ouryuuzeno/Downloads/Project/EvalScript/evalResult.py /Users/ouryuuzeno/Downloads/Project/RU/dev.out /Users/ouryuuzeno/Downloads/Project/RU/dev.p2.out
