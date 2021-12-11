@@ -1,7 +1,7 @@
 import math
 import os
 import sys
-from Part1 import get_train, max_emission_parameter, sentiment_analysis
+from Part1 import get_train, sentiment_analysis
 
 # column separator
 separator = ' '
@@ -128,6 +128,7 @@ def viterbiAlgo(states, emission, transition, sentence):
     #part2 of psuedocode from lecture -- . For j = 0…n − 1, for each u ∈ T π(j + 1, u) = maxv{π(j, v) × bu(xj+1) × av,u}
     for i in range(1, n):
         scores[i] = {}
+
         for j in states:
             maxprobe = []
             for l in states:
@@ -185,10 +186,7 @@ ViterbiSentence = get_sentence("/Users/ouryuuzeno/Downloads/Project/RU/dev.in")
 test_file = open("/Users/ouryuuzeno/Downloads/Project/RU/dev.in", "r", encoding='UTF-8')
 train_data = get_train (train_file) #gather what i need for viterbi
 
-train_emissions = train_data[0]
 train_labels = train_data[1]
-train_words = train_data[2]
-train_emission_types = train_data[3]
 
 # print("Train emissions" + str(train_emissions))
 _, max_em = sentiment_analysis(train_data, test_file)

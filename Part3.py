@@ -1,6 +1,6 @@
 import math
 import sys
-from Part1 import get_train, max_emission_parameter, sentiment_analysis
+from Part1 import get_train, sentiment_analysis
 from Part2 import get_sentence, transition_parameter
 
 # column separator
@@ -27,13 +27,16 @@ def modifiedViterbi(x, states, emission, transition, sentence):
     #for i = 0, i.e. from start state to the next state
     scores[0] = {}
     for j in states:
+        initialQuerry = str(j) + sentence[0]
         if ("Start", j) in transii:
             transit = math.log(transii[("Start", j)])
         else:
             transit = takesmallest
+
+
         
-        if (sentence[0], j) in emii:
-            emit = math.log(emii[(sentence[0], j)])
+        if initialQuerry in emii:
+            emit = math.log(emii[initialQuerry])
         else:
             emit = takesmallest
 
@@ -53,8 +56,9 @@ def modifiedViterbi(x, states, emission, transition, sentence):
                 else:
                     transit = takesmallest
 
-                if (sentence[i],j) in emii:
-                    emit = math.log(emii[(sentence[i], j)])
+                querry = str(j) + sentence[i]
+                if querry in emii:
+                    emit = math.log(emii[querry])
                 else:
                     emit = takesmallest
                 
@@ -126,12 +130,8 @@ ViterbiSentence = get_sentence("/Users/ouryuuzeno/Downloads/Project/RU/dev.in")
 test_file = open("/Users/ouryuuzeno/Downloads/Project/RU/dev.in", "r", encoding='UTF-8')
 train_data = get_train (train_file) #gather what i need for viterbi
 
-train_emissions = train_data[0]
 train_labels = train_data[1]
-train_words = train_data[2]
-train_emission_types = train_data[3]
 
-# print("Train emissions" + str(train_emissions))
 _, max_em = sentiment_analysis(train_data, test_file)
 
 train_transitionES = transition_parameter("/Users/ouryuuzeno/Downloads/Project/ES/train")[1]

@@ -43,13 +43,6 @@ def get_train(train_file):
                 train_emission_types[word] += label
             else:
                 train_emission_types[word] = label
-            
-    print("No. of Examples:", examples) 
-    print("No. of Lines:", lines) 
-    print("No. of Unique Words:", len(train_words)) 
-    print("No. of Unique Labels:", len(train_labels)) 
-    print("No. of Unique Emissions:", len(train_emissions)) 
-    print("No. of Emission Types:", len(train_emission_types)) 
 
     return train_emissions, train_labels, train_words, train_emission_types
 
