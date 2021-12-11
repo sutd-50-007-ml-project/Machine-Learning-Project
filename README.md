@@ -39,14 +39,15 @@ To run the code for Q2 and produce a dev.p2.out for both ES and RU, replace the 
 Take note of the path and ensure that the path is correct, which are lines 85, 86, 183, 184, 186, 203 and 205, according to ES or RU
 
 To evaluate, 
+```
 EvalScript/evalResult.py ES/dev.out ES/dev.p2.out
 EvalScript/evalResult.py RU/dev.out RU/dev.p2.out
-
+```
 OR 
-
+```
 python3 EvalScript/evalResult.py ES/dev.out ES/dev.p2.out
 python3 EvalScript/evalResult.py RU/dev.out RU/dev.p2.out
-
+```
 ### Question 3
 To run the code for Q3 and produce a dev.p3.out for both ES and RU, replace the paths to the appropriate ES/RU files with your own.
 Since the code for Q3 includes some of the functions written for Q2, it is necessary to replace the paths in the codes for both Q2 and Q3.
