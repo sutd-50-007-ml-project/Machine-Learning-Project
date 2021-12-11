@@ -6,6 +6,7 @@ def get_train(train_file):
     lines = 0
     train_emission_types = {} # key: all unique words, value: concatenation of all labels (separated by ,) emitting the word
     train_emissions = {} # key: all unique emissions (by concatenating word + label), value: count of the emission
+    # { "helloB-positive: 5", "worldB-negative: 1"}
     train_labels = {} # key: all uniqe labels, value: count of label
     train_words = [] # all the unique words in training set
 
@@ -23,7 +24,6 @@ def get_train(train_file):
         else:
             word, label = line.rsplit(separator, 1)
             emission = label + word
-
 
             if word not in train_words:
                 train_words.append(word)
@@ -83,8 +83,12 @@ def emission_parameter(train_word, train_label, train_emissions, train_words, tr
 #    k = 1.
 # Returns: Predictions (or model) for test set
 def max_emission_parameter(train_emission_types, train_emissions, train_words, train_labels):
-    predictions = {}
+    predictions = {} # key: word, value: label that gives the highest emission parameter for that word
+    max_emission = {} # key: word, value: max emission parameter value for that word
+
     
+    # special token
+    unk = "#UNK#"
     # find highest emission parameter for all words in training set
     for word, labels in train_emission_types.items():
         max_em = 0
@@ -100,6 +104,7 @@ def max_emission_parameter(train_emission_types, train_emissions, train_words, t
                 max_em = new_em
                 # set prediction label as the label that generates a higher emission parameter
                 predictions[word] = label
+                max_emission[label+word] = max_em
     
     max_unk_em = 0  
     
@@ -109,12 +114,17 @@ def max_emission_parameter(train_emission_types, train_emissions, train_words, t
         if new_em > max_unk_em:
             max_unk_em = new_em
             predictions[unk] = label
-    print (predictions)
-    return predictions
+    return predictions, max_emission
     
 # Returns: Entire content for the output file
 def sentiment_analysis(train_data, test_file):
     output = ''
+    
+    # column separator
+    separator = ' '
+    
+    # special token
+    unk = "#UNK#"
     
     train_emissions = train_data[0]
     train_labels = train_data[1]
@@ -122,8 +132,7 @@ def sentiment_analysis(train_data, test_file):
     train_emission_types = train_data[3]
     
     # train model and get predictions
-    predictions = max_emission_parameter(train_emission_types, train_emissions, train_words, train_labels)
-    print(train_emissions)
+    predictions, max_em = max_emission_parameter(train_emission_types, train_emissions, train_words, train_labels)
     # get label prediction for each input word in test file 
     for line in test_file:
         word = line.split('\n')[0]
@@ -140,7 +149,7 @@ def sentiment_analysis(train_data, test_file):
         else: # no word i.e. empty line
             output += '\n'
         
-    return output
+    return output, max_em
     
     
 ### Main Function ###
@@ -167,7 +176,7 @@ if __name__ == '__main__':
     train_data = get_train(train_file)
 
     # Make prediction using test data
-    output = sentiment_analysis(train_data, test_file)
+    output, _ = sentiment_analysis(train_data, test_file)
 
     # Write prediction output to file
     output_file.write(output)

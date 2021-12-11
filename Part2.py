@@ -1,8 +1,14 @@
 import math
 import os
 import sys
-from Part1 import get_train
+from Part1 import get_train, max_emission_parameter, sentiment_analysis
 
+# column separator
+separator = ' '
+
+# special token
+unk = "#UNK#"
+    
 def get_sentence(file) :
 
     devinfile = open(file, "r", encoding='UTF-8')
@@ -76,8 +82,8 @@ def transition_parameter(pathtofile):
 
 
 
-train_transitionES = transition_parameter("/Users/sweeen/Downloads/Project/ES/train")[1]
-train_transitionRU = transition_parameter ("/Users/sweeen/Downloads/Project/RU/train")[1] # do this later
+train_transitionES = transition_parameter("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/train")[1]
+train_transitionRU = transition_parameter ("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/train")[1] # do this later
 print (train_transitionES)
 
 
@@ -176,11 +182,21 @@ def viterbiAlgo(states, emission, transition, sentence):
 
 # test_file = open(sys.argv[2], "r", encoding='UTF-8')
 # output_file = open(sys.argv[3], "w", encoding='UTF-8')
-train_file = open("/Users/sweeen/Downloads/Project/ES/train", "r", encoding='UTF-8') #change here for ES/RU , RU/ES
+train_file = open("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/train", "r", encoding='UTF-8') #change here for ES/RU , RU/ES
 
-ViterbiSentence = get_sentence("/Users/sweeen/Downloads/Project/ES/dev.in")  #change here for ES/RU , RU/ES
+ViterbiSentence = get_sentence("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/dev.in")  #change here for ES/RU , RU/ES
 
-train_emissions,train_labels, _ , _ =  get_train (train_file) #gather what i need for viterbi
+test_file = open("/Users/chuaqibao/Desktop/ISTD/Term 6/Machine Learning/Project/RU/dev.in", "r", encoding='UTF-8')
+train_data = get_train (train_file) #gather what i need for viterbi
+
+train_emissions = train_data[0]
+train_labels = train_data[1]
+train_words = train_data[2]
+train_emission_types = train_data[3]
+
+# print("Train emissions" + str(train_emissions))
+_, max_em = sentiment_analysis(train_data, test_file)
+# print("Max Emission Parameters: " + str(max_em))
 
 #
 # with open ("ES\dev.p2.out", "a" , encoding="utf-8") as file :
@@ -190,9 +206,9 @@ train_emissions,train_labels, _ , _ =  get_train (train_file) #gather what i nee
 #         file.write ('\n')
 
 #
-with open ("RU\dev.p2.out", "w" , encoding="UTF-8") as file :       #change here for ES/RU , RU/ES
+with open ("RU/dev.p2.out", "w" , encoding="UTF-8") as file :       #change here for ES/RU , RU/ES
     for sentence in ViterbiSentence:
-        ListPath = (viterbiAlgo(train_labels, train_emissions, train_transitionRU, sentence))[1] #change here for ES/RU , RU/ES
+        ListPath = (viterbiAlgo(train_labels, max_em, train_transitionRU, sentence))[1] #change here for ES/RU , RU/ES
         for i in range(len(sentence)-1) :
             if ListPath[i] in ["Start" , 'Stop' ]: #dont want to append start and stop into dev2
                 pass
